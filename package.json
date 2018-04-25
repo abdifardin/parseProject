@@ -1,0 +1,23 @@
+{
+  "name": "parsproject",
+  "version": "1.0.0",
+  "description": "A test project for parse company",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FakhruddinAbdi/parseProject.git"
+  },
+  "keywords": [
+    "parseProject",
+    "cms"
+  ],
+  "author": "Fakhruddin Abdi",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/FakhruddinAbdi/parseProject/issues"
+  },
+  "homepage": "https://github.com/FakhruddinAbdi/parseProject#readme"
+}
