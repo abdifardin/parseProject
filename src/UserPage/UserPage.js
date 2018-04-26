@@ -25,7 +25,7 @@ import {
 
 // locals
 import s from './UserPage.style';
-import { logOutUser, getPosts, newPost } from '../Methods and Constatns/firebaseQueries';
+import { logOutUser, getPosts, newPost, deletePost } from '../Methods and Constatns/firebaseQueries';
 import Login from '../Login/Login'
 import { SSL_OP_ALL } from 'constants';
 //
@@ -86,6 +86,14 @@ export default class UserPage extends Component {
         newPost(data, () => { console.log('something')});
     };
 
+    //Handle edit
+    handleEdit= () => {
+    };
+
+    //Handle remove
+     handleRemove= (fbKey) => {
+         deletePost(fbKey);
+    };
 
     // render
     //------------------------------------------    
@@ -96,13 +104,13 @@ export default class UserPage extends Component {
             //todo: console
             console.log('title', item.title);
             return (
-            <ListGroupItem style={{display: 'flex', justifyContent: 'space-between'}}>
+            <ListGroupItem key={i} style={{display: 'flex', justifyContent: 'space-between'}}>
                 <div>
                     {item.title}
                 </div>
                 <div>
-                    <Button color="info" style={{margin: '0 3px'}}>edit</Button>
-                    <Button color="danger">remove</Button>
+                    <Button onClick={() => this.handleEdit(item.fbKey)} color="info" style={{margin: '0 3px'}}>edit</Button>
+                    <Button onClick={() => this.handleRemove(item.fbKey)} color="danger">remove</Button>
                 </div>
             </ListGroupItem>
             )

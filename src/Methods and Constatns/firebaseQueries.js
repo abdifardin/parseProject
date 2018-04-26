@@ -48,6 +48,7 @@ const getAPost= (cb, fbKey) => {
 
 //New Post
 const newPost= (newPost, cb) => {
+    const fbKey = getFbKey('posts');
     newPost.uid = getCurrentUser().uid;
     newPost.timestamp = Date.now();
     const postPreview = {
@@ -56,17 +57,15 @@ const newPost= (newPost, cb) => {
         timestamp: newPost.timestamp
     };
     // reference to FB account - posts
-    const itemRef = `posts`;
+    const itemRef = `posts/${fbKey}`;
     const dbRef = firebase.database().ref(itemRef);
 
     // reference to preview path
-    const itemRef_preview = 'posts-preview';
+    const itemRef_preview = `posts-preview/${fbKey}`;
     const dbRef_preview = firebase.database().ref(itemRef_preview);
 
-    //todo: console
-    console.log('newpost', newPost, itemRef);
     // query
-    dbRef.push(newPost);
+    dbRef.set(newPost);
     dbRef_preview.push(newPost);
 };
 
@@ -84,16 +83,18 @@ const updatePost= (cb, fbKey, newPost) => {
 };
 
 //Delete a post
-const deletePost= (cb, fbKey) => {
-     // reference to FB account
+const deletePost = (fbKey) => {
+     // reference to FB account - posts list
   const itemRef = `posts/${fbKey}`;
   const dbRef = firebase.database().ref(itemRef);
 
+  //  posts - preview path
+  const itemRef_preview = `posts-preview/${fbKey}`;
+  const dbRef_preview = firebase.database().ref(itemRef_preview);
+
   // query
-  dbRef.remove('value', (result) => {
-      //todo: console
-      console.log('result', result);
-    });
+  dbRef.remove();
+  dbRef_preview.remove();
 };
 
 const getCurrentUser = () => {
