@@ -20,7 +20,6 @@ export default class Header extends Component {
     // Constructor
     //------------------------------------------
     state = {
-        isOpen: false
 
     }
 
@@ -29,11 +28,6 @@ export default class Header extends Component {
 
     // Local methods
     //------------------------------------------
-    toggle = () =>{
-        this.setState({
-          isOpen: !this.state.isOpen
-        });
-      }
 
     // render
     //------------------------------------------    
