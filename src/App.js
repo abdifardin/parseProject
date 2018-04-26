@@ -4,7 +4,8 @@
 
 // vendor
 import React, { Component } from 'react';
-import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap.css';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 
 // locals
@@ -41,11 +42,13 @@ class App extends Component {
   render() {
     const { user } = this.state;
     return (
-      <div>
-        <Header user= {user} />
-        <Content user={user} />
-        <Footer user={user} />
-      </div>
+      <Router history={History}>
+        <div>
+          <Header user={user} />
+          <Content user={user} />
+          <Footer user={user} />
+        </div>
+      </Router>
     );
   }
 }

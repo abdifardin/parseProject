@@ -9,7 +9,7 @@ import s from './Footer.style';
 //
 // Class defintion 
 //------------------------------------------------------------------
-export default class Header extends Component {
+export default class Footer extends Component {
     // Constructor
     //------------------------------------------
     state = {

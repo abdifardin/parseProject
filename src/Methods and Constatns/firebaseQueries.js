@@ -6,17 +6,30 @@ import  { config } from './config';
 firebase.initializeApp(config);
 
 //Get posts for visitors
-const getPosts= (cb) => {
+const getPosts= (mode, cb) => {
+    const user = getCurrentUser();
   // reference to FB account
-  const itemRef = `posts-preview`;
+  const itemRef = `posts`;
   const dbRef = firebase.database().ref(itemRef);
 
-  // query
-  dbRef
-    .orderByKey()
-    .on('value', (snapshot) => {
-      cb(_toArray(snapshot));
-    });
+  //todo: console
+  console.log('mode', mode, user.uid);
+
+  if (mode === 'userPost')
+      dbRef
+          .orderByChild('uid')
+          .equalTo(user.uid)
+          .on('value', (snapshot) => {
+             //todo: console
+             console.log('get user posts', _toArray(snapshot));
+              cb(_toArray(snapshot));
+          });
+  else// query
+    dbRef
+        .orderByKey()
+        .on('value', (snapshot) => {
+        cb(_toArray(snapshot));
+        }); 
 };
 
 //Get a post
@@ -31,6 +44,30 @@ const getAPost= (cb, fbKey) => {
     .once('value', (snapshot) => {
       cb(snapshot.val());
     });
+};
+
+//New Post
+const newPost= (newPost, cb) => {
+    newPost.uid = getCurrentUser().uid;
+    newPost.timestamp = Date.now();
+    const postPreview = {
+        title: newPost.title,
+        uid: newPost.uid,
+        timestamp: newPost.timestamp
+    };
+    // reference to FB account - posts
+    const itemRef = `posts`;
+    const dbRef = firebase.database().ref(itemRef);
+
+    // reference to preview path
+    const itemRef_preview = 'posts-preview';
+    const dbRef_preview = firebase.database().ref(itemRef_preview);
+
+    //todo: console
+    console.log('newpost', newPost, itemRef);
+    // query
+    dbRef.push(newPost);
+    dbRef_preview.push(newPost);
 };
 
 //Update a post
@@ -112,6 +149,10 @@ const logOutUser = (cb) => {
 //
 // Helder functions ( NOT EXPORTED )
 //------------------------------------------------------------------
+const getFbKey = (path) => {
+    return firebase.database().ref().child(path).push().key;
+};
+
 const _toArray = (snapshot) => {
     var arr = [];
     snapshot.forEach(function (childSnapshot){
@@ -141,5 +182,6 @@ const _isObject = (obj) => {
       getCurrentUser,
       createUser,
       getAuthStatus,
-      logOutUser
+      logOutUser,
+      newPost
   }

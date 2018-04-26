@@ -70,16 +70,16 @@ export default class Login extends Component {
         return (
             <div style={{width: '100%', display: 'flex', justifyContent: 'center', paddingTop: 50}}>
                 <Form onSubmit={this.handleSubmit} style={{ width: '500px', backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '10px', border: '1px solid #ddd' }}>
-                        <FormGroup>
-                            <Label for="exampleEmail">Email</Label>
-                            <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
-                        </FormGroup>
-                        <FormGroup>
-                            <Label for="examplePassword">Password</Label>
-                            <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
-                        </FormGroup>
-                        <Button>Sign up or Sign in</Button>
-                        </Form>
+                    <FormGroup>
+                        <Label for="exampleEmail">Email</Label>
+                        <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+                    </FormGroup>
+                    <FormGroup>
+                        <Label for="examplePassword">Password</Label>
+                        <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+                    </FormGroup>
+                    <Button>Sign up or Sign in</Button>
+                </Form>
                 {
                     // if user then redirect to home page
                     user

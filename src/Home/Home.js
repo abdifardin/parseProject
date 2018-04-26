@@ -9,7 +9,7 @@ import s from './Home.style';
 //
 // Class defintion 
 //------------------------------------------------------------------
-export default class Header extends Component {
+export default class Home extends Component {
     // Constructor
     //------------------------------------------
     state = {

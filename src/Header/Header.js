@@ -1,7 +1,6 @@
 //
 // by Fakhruddin Abdi, 26th Apr 2018
 //------------------------------------------------------------------
-    
 import React, { Component } from 'react';
 import {
     Navbar,
@@ -19,11 +18,16 @@ import {
     DropdownToggle,
     DropdownMenu,
     DropdownItem} from 'reactstrap';
+import { Redirect, Link } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 
 // locals
 import s from './Header.style';
 import { logOutUser } from '../Methods and Constatns/firebaseQueries';
 import Login from '../Login/Login'
+import UserPage from '../UserPage/UserPage';
+const history = createHistory();
+
 //
 // Class defintion 
 //------------------------------------------------------------------
@@ -32,6 +36,7 @@ export default class Header extends Component {
     //------------------------------------------
     state = {
         user: null,
+        dropdownOpen: false
     }
 
     // Life cycle methods
@@ -39,7 +44,6 @@ export default class Header extends Component {
     componentWillMount() {
         this.setState({
             user: this.props.user,
-            dropdownOpen: false
         })
     }
     componentWillReceiveProps(nextProps, nextState) {
@@ -67,10 +71,12 @@ export default class Header extends Component {
         logOutUser();
     };
 
+
+
     // render
     //------------------------------------------    
     render () {
-        const { modal, user } = this.state;
+        const { goToUserPage, user } = this.state;
         return (
             <div style={s.root}>
               <Navbar color="light" light expand="md">
@@ -92,11 +98,18 @@ export default class Header extends Component {
                                             <DropdownToggle onClick={(e) => { e.preventDefault() }} caret>
                                                 { user.email}
                                             </DropdownToggle>
-                                            <DropdownMenu onClick={this.handleLogout} right>
-                                                <DropdownItem header>logout</DropdownItem>
+                                            <DropdownMenu >
+                                                <DropdownItem onClick={this.handleLogout}>
+                                                    logout
+                                                </DropdownItem>
+                                                <DropdownItem header>
+                                                    <Link style={{ textDecoration: 'none', color: 'black' }} to="/user">
+                                                    user page
+                                                    </Link>
+                                                </DropdownItem>
                                             </DropdownMenu>
                                         </UncontrolledDropdown>
-                                        
+                                         
                                         : 
                                         <div onClick={ this.handleLogin }>
                                             Login
