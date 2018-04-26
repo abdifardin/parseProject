@@ -17,11 +17,27 @@ export default class Header extends Component {
     // Constructor
     //------------------------------------------
     state = {
-
+        user: null
     }
 
     // Life cycle methods
     //------------------------------------------
+    componentWillMount() {
+        this.setState({
+            user: this.props.user,
+            dropdownOpen: false
+        })
+    }
+    
+    componentWillReceiveProps(nextProps, nextState) {
+        const oldId = this.props.user;
+        const newId = nextProps.user;
+        if (oldId !== newId) {
+            this.setState({
+                user: nextProps.user
+            })
+        }
+    }
 
     // Local methods
     //------------------------------------------
