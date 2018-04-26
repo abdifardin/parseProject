@@ -47,8 +47,11 @@ const getAPost= (cb, fbKey) => {
 };
 
 //New Post
-const newPost= (newPost, cb) => {
-    const fbKey = getFbKey('posts');
+const newPost= (newPost, fbKeyParam) => {
+    // if we are in editing mode, then we have fbKey already
+    // so we can use it for update
+    // if not we should generate a new one
+    const fbKey = fbKeyParam || getFbKey('posts');
     newPost.uid = getCurrentUser().uid;
     newPost.timestamp = Date.now();
     const postPreview = {
