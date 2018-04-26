@@ -22,6 +22,7 @@ import {
     DropdownItem,
     ListGroup,
     ListGroupItem} from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 // locals
 import s from './UserPage.style';
@@ -124,10 +125,10 @@ export default class UserPage extends Component {
             //todo: console
             console.log('title', item.title);
             return (
-            <ListGroupItem key={i} style={{display: 'flex', justifyContent: 'space-between'}}>
-                <div>
+            <ListGroupItem  key={i} style={{display: 'flex', justifyContent: 'space-between'}}>
+                <Link style={{textDecoration: 'none', color: 'black'}} to={`post/${item.fbKey}`}>
                     {item.title}
-                </div>
+                </Link>
                 <div>
                     <Button onClick={() => this.handleEdit(item)} color="info" style={{margin: '0 3px'}}>edit</Button>
                     <Button onClick={() => this.handleRemove(item.fbKey)} color="danger">remove</Button>
@@ -136,8 +137,6 @@ export default class UserPage extends Component {
             )
         })
 
-        //todo: console
-        console.log('list', _posts);
         return (
             <div style={s.root}>
                 <div style={{margin: 'auto'}}>

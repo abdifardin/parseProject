@@ -11,6 +11,7 @@ import s from './Content.style';
 import Home from '../Home/Home';
 import Login from '../Login/Login';
 import UserPage from '../UserPage/UserPage';
+import PostPage from '../PostPage/PostPage';
 
 //
 // Class defintion 
@@ -54,11 +55,17 @@ export default class Content extends Component {
                 <Route exact path="/" ender={props => (
                     <Home {...props} user={user} />
                 )} />
+
                 <Route path="/login" render={props => (
                     <Login {...props} user={user} />
                 )} />
+
                 <Route path="/user" render={props => (
                     <UserPage {...props} user={user} />
+                )} />
+
+                <Route path="/post" render={props => (
+                    <PostPage {...props} user={user} />
                 )} />
             </div>
         )
