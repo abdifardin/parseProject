@@ -1,4 +1,4 @@
-export default config = {
+export const config =  {
     apiKey: "AIzaSyCjdEIt2Z6KQEzaZiKvkNeDJvTRUTU_xzk",
     authDomain: "parsproject-d524b.firebaseapp.com",
     databaseURL: "https://parsproject-d524b.firebaseio.com",

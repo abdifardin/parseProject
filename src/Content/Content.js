@@ -29,12 +29,19 @@ export default class Header extends Component {
     // render
     //------------------------------------------    
     render () {
+        const { user } = this.state;
         return (
             <Router>
                <div>
-                    <Route exact path="/" component={Home} />
-                    <Route path="/login" component={Login} />
-                    <Route path="/user/" component={Home} />
+                    <Route exact path="/" ender={props => (
+                        <Home {...props} user={user} />
+                    )} />
+                    <Route path="/login" render={props => (
+                        <Login {...props} user={user} />
+                    )} />
+                    <Route path="/user/" render={props => (
+                        <Home {...props} user={user} />
+                    )} />
                </div>
             </Router>
         )

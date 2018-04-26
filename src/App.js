@@ -12,18 +12,39 @@ import logo from './logo.svg';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import Content from './Content/Content'
+import { getCurrentUser, getAuthStatus } from './Methods and Constatns/firebaseQueries';
 
 
 //
 // Class defintion
 //------------------------------------------------------------------
 class App extends Component {
+
+  state= {
+    user: null
+  }
+
+  // lifeCycle methods
+  //------------------------------------------
+  componentWillMount() {
+
+    getAuthStatus((user) => {
+      this.setState({
+        user: user
+      })
+    });
+  }
+  
+  // Local methods
+  //------------------------------------------
+
   render() {
+    const { user } = this.state;
     return (
       <div>
-        <Header />
-        <Content />
-        <Footer />
+        <Header user= {user} />
+        <Content user={user} />
+        <Footer user={user} />
       </div>
     );
   }
