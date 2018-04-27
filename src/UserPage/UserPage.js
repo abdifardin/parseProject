@@ -26,7 +26,7 @@ import { Link } from 'react-router-dom';
 
 // locals
 import s from './UserPage.style';
-import { logOutUser, getPosts, newPost, deletePost } from '../Methods and Constatns/firebaseQueries';
+import { logOutUser, getPosts, newPost, deletePost } from '../Methods/firebaseQueries';
 import Login from '../Login/Login'
 import { SSL_OP_ALL } from 'constants';
 //

@@ -23,9 +23,10 @@ import createHistory from 'history/createBrowserHistory';
 
 // locals
 import s from './Header.style';
-import { logOutUser } from '../Methods and Constatns/firebaseQueries';
+import { logOutUser } from '../Methods/firebaseQueries';
 import Login from '../Login/Login'
 import UserPage from '../UserPage/UserPage';
+import Search from '../Search/Search';
 const history = createHistory();
 
 //
@@ -82,11 +83,7 @@ export default class Header extends Component {
               <Navbar color="light" light expand="md">
                 <NavbarBrand href="/">Pars project</NavbarBrand>
                 <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '10 0' }} >
-                    <Form style={{ width: '50%', position: 'relative', top: '10px' }}>
-                        <FormGroup>
-                            <Input type="text" name="search" placeholder="search here" />
-                        </FormGroup>
-                    </Form>
+                   <Search />
                 </div>
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>

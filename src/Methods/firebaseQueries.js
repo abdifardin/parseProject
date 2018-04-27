@@ -1,53 +1,54 @@
 
 import firebase from 'firebase';
-import  { config } from './config';
+import { config } from './config';
+import { initialImporter } from '../Methods/algoliaSearch';
 
 
 firebase.initializeApp(config);
 
 //Get posts for visitors
-const getPosts= (mode, cb) => {
+const getPosts = (mode, cb) => {
     const user = getCurrentUser();
-  // reference to FB account
-  const itemRef = `posts`;
-  const dbRef = firebase.database().ref(itemRef);
+    // reference to FB account
+    const itemRef = `posts`;
+    const dbRef = firebase.database().ref(itemRef);
 
-  //todo: console
-  console.log('mode', mode, user.uid);
+    //todo: console
+    console.log('mode', mode, user.uid);
 
-  if (mode === 'userPost')
-      dbRef
-          .orderByChild('uid')
-          .equalTo(user.uid)
-          .on('value', (snapshot) => {
-             //todo: console
-             console.log('get user posts', _toArray(snapshot));
-              cb(_toArray(snapshot));
-          });
-  else// query
-    dbRef
-        .orderByKey()
-        .on('value', (snapshot) => {
-        cb(_toArray(snapshot));
-        }); 
+    if (mode === 'userPost')
+        dbRef
+            .orderByChild('uid')
+            .equalTo(user.uid)
+            .on('value', (snapshot) => {
+                //todo: console
+                console.log('get user posts', _toArray(snapshot));
+                cb(_toArray(snapshot));
+            });
+    else// query
+        dbRef
+            .orderByKey()
+            .on('value', (snapshot) => {
+                cb(_toArray(snapshot));
+            });
 };
 
 //Get a post
-const getAPost= (cb, fbKey) => {
+const getAPost = (cb, fbKey) => {
     // reference to FB account
-  const itemRef = `posts/${fbKey}`;
-  const dbRef = firebase.database().ref(itemRef);
+    const itemRef = `posts/${fbKey}`;
+    const dbRef = firebase.database().ref(itemRef);
 
-  // query
-  dbRef
-    .orderByKey()
-    .once('value', (snapshot) => {
-      cb(snapshot.val());
-    });
+    // query
+    dbRef
+        .orderByKey()
+        .once('value', (snapshot) => {
+            cb(snapshot.val());
+        });
 };
 
 //New Post
-const newPost= (newPost, fbKeyParam) => {
+const newPost = (newPost, fbKeyParam) => {
     // if we are in editing mode, then we have fbKey already
     // so we can use it for update
     // if not we should generate a new one
@@ -73,31 +74,31 @@ const newPost= (newPost, fbKeyParam) => {
 };
 
 //Update a post
-const updatePost= (cb, fbKey, newPost) => {
-     // reference to FB account
-  const itemRef = `posts/${fbKey}`;
-  const dbRef = firebase.database().ref(itemRef);
+const updatePost = (cb, fbKey, newPost) => {
+    // reference to FB account
+    const itemRef = `posts/${fbKey}`;
+    const dbRef = firebase.database().ref(itemRef);
 
-  // query
-  dbRef .set(newPost, (result) => {
-      //todo: console
-      console.log('result', result);
+    // query
+    dbRef.set(newPost, (result) => {
+        //todo: console
+        console.log('result', result);
     });
 };
 
 //Delete a post
 const deletePost = (fbKey) => {
-     // reference to FB account - posts list
-  const itemRef = `posts/${fbKey}`;
-  const dbRef = firebase.database().ref(itemRef);
+    // reference to FB account - posts list
+    const itemRef = `posts/${fbKey}`;
+    const dbRef = firebase.database().ref(itemRef);
 
-  //  posts - preview path
-  const itemRef_preview = `posts-preview/${fbKey}`;
-  const dbRef_preview = firebase.database().ref(itemRef_preview);
+    //  posts - preview path
+    const itemRef_preview = `posts-preview/${fbKey}`;
+    const dbRef_preview = firebase.database().ref(itemRef_preview);
 
-  // query
-  dbRef.remove();
-  dbRef_preview.remove();
+    // query
+    dbRef.remove();
+    dbRef_preview.remove();
 };
 
 const getCurrentUser = () => {
@@ -150,6 +151,14 @@ const logOutUser = (cb) => {
     });
 };
 
+const algoliaImporter = () => {
+    // reference to FB.USER_LIKES account
+    const itemRef = 'posts';
+    const dbRef = firebase.database().ref(itemRef);
+
+    dbRef.once('value', initialImporter);
+};
+
 //
 // Helder functions ( NOT EXPORTED )
 //------------------------------------------------------------------
@@ -159,15 +168,15 @@ const getFbKey = (path) => {
 
 const _toArray = (snapshot) => {
     var arr = [];
-    snapshot.forEach(function (childSnapshot){
-      var val = childSnapshot.val();
-      if(_isObject(val)){
-        val.fbKey = childSnapshot.key;
-      }
-      arr.push(val);
+    snapshot.forEach(function (childSnapshot) {
+        var val = childSnapshot.val();
+        if (_isObject(val)) {
+            val.fbKey = childSnapshot.key;
+        }
+        arr.push(val);
     });
     return arr;
-  };
+};
 
 const _isObject = (obj) => {
     return Object.prototype.toString.call(obj) === '[object Object]' ? true : false;
@@ -175,17 +184,18 @@ const _isObject = (obj) => {
 
 
 
-  //
-  // Exports
-  //------------------------------------------------------------------
-  export {
-      getPosts,
-      getAPost,
-      updatePost,
-      deletePost,
-      getCurrentUser,
-      createUser,
-      getAuthStatus,
-      logOutUser,
-      newPost
-  }
+//
+// Exports
+//------------------------------------------------------------------
+export {
+    getPosts,
+    getAPost,
+    updatePost,
+    deletePost,
+    getCurrentUser,
+    createUser,
+    getAuthStatus,
+    logOutUser,
+    newPost,
+    algoliaImporter
+}

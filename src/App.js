@@ -13,7 +13,7 @@ import logo from './logo.svg';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import Content from './Content/Content'
-import { getCurrentUser, getAuthStatus } from './Methods and Constatns/firebaseQueries';
+import { getCurrentUser, getAuthStatus } from './Methods/firebaseQueries';
 
 
 //
