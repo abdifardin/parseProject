@@ -27,7 +27,7 @@ export default class Footer extends Component {
     render () {
         return (
             <div style={s.root}>
-                @Pars 2018
+                <span style={s.container}> @Pars 201 </span>
             </div>
         )
     }

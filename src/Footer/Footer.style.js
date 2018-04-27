@@ -12,5 +12,8 @@ export default {
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center' 
+    },
+    container: {
+        margin: 'auto'
     }
 }
