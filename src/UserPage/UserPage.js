@@ -23,12 +23,35 @@ import {
     ListGroup,
     ListGroupItem} from 'reactstrap';
 import { Link } from 'react-router-dom';
+import ContentLoader from "react-content-loader"
+
 
 // locals
 import s from './UserPage.style';
 import { logOutUser, getPosts, newPost, deletePost } from '../Methods/firebaseQueries';
 import Login from '../Login/Login'
 import { SSL_OP_ALL } from 'constants';
+
+const MyLoader = props => (
+    <ContentLoader
+        height={160}
+        width={400}
+        speed={2}
+        primaryColor="#f3f3f3"
+        secondaryColor="#ecebeb"
+        {...props}
+    >
+        <circle cx="10" cy="20" r="8" />
+        <rect x="25" y="15" rx="5" ry="5" width="220" height="10" />
+        <circle cx="10" cy="50" r="8" />
+        <rect x="25" y="45" rx="5" ry="5" width="220" height="10" />
+        <circle cx="10" cy="80" r="8" />
+        <rect x="25" y="75" rx="5" ry="5" width="220" height="10" />
+        <circle cx="10" cy="110" r="8" />
+        <rect x="25" y="105" rx="5" ry="5" width="220" height="10" />
+    </ContentLoader>
+)
+
 //
 // Class defintion 
 //------------------------------------------------------------------
@@ -161,7 +184,10 @@ export default class UserPage extends Component {
                         Posts by you
                     </div>
                     <ListGroup style={{ width: 500 }}>
-                        {_posts || <div> you have no post yet</div>}
+                        {
+                            _posts || 
+                            <MyLoader />
+                        }
                     </ListGroup>
                 </div>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
