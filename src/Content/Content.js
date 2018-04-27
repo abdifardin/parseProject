@@ -29,11 +29,11 @@ export default class Content extends Component {
     componentWillMount() {
         this.setState({
             user: this.props.user,
-            dropdownOpen: false
         })
     }
 
     componentWillReceiveProps(nextProps, nextState) {
+        // getting user from firebase is async and when the user object is ready, it will trigger this function
         const oldId = this.props.user;
         const newId = nextProps.user;
         if (oldId !== newId) {

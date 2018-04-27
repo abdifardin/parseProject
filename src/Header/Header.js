@@ -5,21 +5,16 @@ import React, { Component } from 'react';
 import {
     Navbar,
     NavbarBrand,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    Collapse,
     NavbarToggler,
     Nav,
     NavItem,
     NavLink,
-    UncontrolledDropdown,
-    DropdownToggle,
     DropdownMenu,
-    DropdownItem} from 'reactstrap';
+    DropdownItem,
+    DropdownToggle,
+    Collapse,
+    UncontrolledDropdown} from 'reactstrap';
 import { Redirect, Link } from 'react-router-dom';
-import createHistory from 'history/createBrowserHistory';
 
 // locals
 import s from './Header.style';
@@ -27,7 +22,6 @@ import { logOutUser } from '../Methods/firebaseQueries';
 import Login from '../Login/Login'
 import UserPage from '../UserPage/UserPage';
 import Search from '../Search/Search';
-const history = createHistory();
 
 //
 // Class defintion 
@@ -67,8 +61,6 @@ export default class Header extends Component {
     
     //Handle logout
     handleLogout= () => {
-        //todo: console
-        console.log('handle logout');
         logOutUser();
     };
 
@@ -82,7 +74,7 @@ export default class Header extends Component {
             <div style={s.root}>
               <Navbar color="light" light expand="md">
                 <NavbarBrand href="/">Pars project</NavbarBrand>
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '10 0'}} >
+                <div style={s.search} >
                    <Search />
                 </div>
                 <Collapse isOpen={this.state.isOpen} navbar>
@@ -100,8 +92,8 @@ export default class Header extends Component {
                                                     logout
                                                 </DropdownItem>
                                                 <DropdownItem header>
-                                                    <Link style={{ textDecoration: 'none', color: 'black' }} to="/user">
-                                                    user page
+                                                    <Link style={s.userPage} to="/user">
+                                                     user page
                                                     </Link>
                                                 </DropdownItem>
                                             </DropdownMenu>

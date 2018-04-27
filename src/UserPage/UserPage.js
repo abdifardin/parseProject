@@ -4,24 +4,17 @@
     
 import React, { Component } from 'react';
 import {
-    Navbar,
-    NavbarBrand,
     Form,
     FormGroup,
     Label,
+    ListGroup,
     Button,
-    Collapse,
-    NavbarToggler,
     Nav,
     NavItem,
-    NavLink,
     Modal,
     ModalBody,
     ModalHeader,
-    Input,
-    DropdownItem,
-    ListGroup,
-    ListGroupItem} from 'reactstrap';
+    Input} from 'reactstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -52,7 +45,6 @@ export default class UserPage extends Component {
     componentWillMount() {
         this.setState({
             user: this.props.user,
-            dropdownOpen: false
         })
     }
     componentWillReceiveProps(nextProps, nextState) {
@@ -80,10 +72,8 @@ export default class UserPage extends Component {
 
     //handle get posts result
     handleGetPosts= (posts) => {
-        //todo: console
-        console.log('posts', posts);
         this.setState({
-          posts: posts
+          posts
         })
     };
 
@@ -104,7 +94,6 @@ export default class UserPage extends Component {
             postEdit: false,
             modal: false
         })
-        console.log('something')
     };
 
     //Handle edit
@@ -126,24 +115,24 @@ export default class UserPage extends Component {
         const { user, posts, postEdit } = this.state;
         return (
             <div style={s.root}>
-                <div style={{margin: 'auto'}}>
-                    <div style={{ width: 500, textAlign: 'center' }}>
-                        <Button color="primary" onClick={this.toggleModal} style={{ marginBottom: '1rem' }}> Create new post </Button>
+                <div style={s.container}>
+                    <div style={s.newPost_div}>
+                        <Button color="primary" onClick={this.toggleModal} style={s.newPost}> Create new post </Button>
                     </div>
-                    <div style={{ fontWeight: 'bold', fontSize: 20, padding: '10px 0' }}>
+                    <div style={s.title}>
                         Posts by you
                     </div>
-                    <ListGroup style={{ width: 500 }}>
+                    <ListGroup style={s.ListGroup}>
                         {
                             posts 
-                                ? <Posts posts={posts} />
+                                ? <Posts posts={posts} user={user} />
                                 : <Loader />
                         }
                     </ListGroup>
                 </div>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
                     <ModalHeader toggle={this.toggle}>{postEdit ? 'Add new post' : 'Edit the post'} </ModalHeader>
-                        <Form ref="form" onSubmit={this.handleSubmit} style={{ backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '10px', border: '1px solid #ddd' }}>
+                        <Form ref="form" onSubmit={this.handleSubmit} style={s.form}>
                             <FormGroup>
                                 <Input defaultValue={postEdit.title} type="text" name="title" id="newPostTitle" placeholder="write your title here" />
                             </FormGroup>

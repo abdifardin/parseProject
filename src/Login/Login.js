@@ -48,9 +48,6 @@ export default class Login extends Component {
             email: e.target.email.value,
             password: e.target.password.value
         };
-
-        //todo: console
-        console.log('data', data);
         createUser(this.hanelSubmitResult, data);
         
     };
@@ -68,8 +65,8 @@ export default class Login extends Component {
     render () {
         const { user } = this.state;
         return (
-            <div style={{width: '100%', display: 'flex', justifyContent: 'center', paddingTop: 50}}>
-                <Form onSubmit={this.handleSubmit} style={{ width: '500px', backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '10px', border: '1px solid #ddd' }}>
+            <div style={s.root}>
+                <Form onSubmit={this.handleSubmit} style={s.form}>
                         <FormGroup>
                             <Label for="exampleEmail">Email</Label>
                             <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />

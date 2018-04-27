@@ -1,6 +1,6 @@
-/**
- * Created by abdi.fakhruddin on 3/17/16.
- */
+//
+// by Fakhruddin Abdi, 27th Apr 2018
+//------------------------------------------------------------------
 
 // vendor
 import React, { PropTypes, Component } from 'react';
@@ -54,17 +54,15 @@ class Search extends Component {
 
     // submit
     // ------------------------
-    Product = ({ hit }) => {
-        //todo: console
-        console.log('hit', hit);
+    Post = ({ hit }) => {
         return (
-            <div style={{ marginTop: '15px' }}>
+            <div style={s.post}>
                 <Link to={`/post/${hit.objectID}`} className="hit-name" style={s.itemLinks}>
-                    <span style={{ height: '75px', overflow: 'hidden' }}>
-                        <span style={{color: 'gray'}}>title: </span>{ hit.title }
+                    <span style={s.searchItemTitle}>
+                        <span style={s.searchItemTitle_span}>title: </span>{ hit.title }
                     </span>
                     <span>
-                        <span style={{ color: 'gray' }}>description: </span> { hit.description}
+                        <span style={s.searchItemTitle_span}>description: </span> { hit.description}
                     </span>
                     
                 </Link>
@@ -89,14 +87,12 @@ class Search extends Component {
                     <SearchBox
                         onFocus={() => this.setState({ showResult: true })}
                         style={{ float: 'right' }}
-                        // because the onBlur event is fired before the click event is registered,
-                        // i.e. your link disappears from the DOM before it can acknowledge it was clicked
                         onBlur={() => setTimeout(() => this.setState({ showResult: false }), 200)}
                         onKeyDown={(e) => e.which === 27 && this.setState({ showResult: false })}
                     />
                     {
                         showResult &&
-                        <Hits hitComponent={this.Product} />
+                        <Hits hitComponent={this.Post} />
                     }
                 </div>
             </InstantSearch>

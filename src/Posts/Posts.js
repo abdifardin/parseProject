@@ -3,47 +3,50 @@
 //------------------------------------------------------------------
 import React, { Component } from 'react';
 import {
-    Navbar,
-    NavbarBrand,
-    Form,
-    FormGroup,
-    Label,
-    Input,
-    Collapse,
-    NavbarToggler,
-    Nav,
-    NavItem,
     Button,
     ListGroupItem,
-    DropdownToggle,
-    DropdownMenu,
-    DropdownItem
 } from 'reactstrap';
 import { Redirect, Link } from 'react-router-dom';
 
 // locals
 import s from './Posts.style';
 import PostsStyle from './Posts.style';
+import Loader from '../Loader/Loader';
 
 //Posts stateless functions
-const Posts =   ({posts}) => {
+const Posts =   ({posts, user}) => {
     const _posts = posts && posts.map((item, i) => {
         return (
-            <ListGroupItem key={i} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Link style={{ textDecoration: 'none', color: 'black' }} to={`post/${item.fbKey}`}>
-                    {item.title}
+            <ListGroupItem key={i} style={s.listGroup}>
+                <Link style={s.listGruop_link} to={`post/${item.fbKey}`}>
+                    <div style={s.content}>
+                        <span style={s.label}>
+                            Title:
+                        </span>
+                        {item.title}
+                    </div>
+                    <div>
+                        <span style={s.label}>
+                            Description:
+                        </span>
+                        {item.description}
+                    </div>
                 </Link>
-                <div>
-                    <Button onClick={() => this.handleEdit(item)} color="info" style={{ margin: '0 3px' }}>edit</Button>
-                    <Button onClick={() => this.handleRemove(item.fbKey)} color="danger">remove</Button>
-                </div>
+                {
+                  user && user.uid === item.uid ? 
+                        <div>
+                            <Button onClick={() => this.handleEdit(item)} color="info" style={s.edit}>edit</Button>
+                            <Button onClick={() => this.handleRemove(item.fbKey)} color="danger">remove</Button>
+                        </div>
+                        : <div />
+                }
             </ListGroupItem>
         )
     });
 
     return (
-        <div>
-            { _posts }
+        <div style={s.root}>
+            {_posts || <Loader /> }
         </div>
     )
 }

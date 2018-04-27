@@ -3,36 +3,15 @@
 //------------------------------------------------------------------
     
 import React, { Component } from 'react';
-import {
-    Navbar,
-    NavbarBrand,
-    Form,
-    FormGroup,
-    Label,
-    Button,
-    Collapse,
-    NavbarToggler,
-    Nav,
-    NavItem,
-    NavLink,
-    Modal,
-    ModalBody,
-    ModalHeader,
-    Input,
-    DropdownItem,
-    ListGroup,
-    ListGroupItem} from 'reactstrap';
-import { Link, withRouter} from 'react-router-dom';
 
 // locals
 import s from './PostPage.style';
-import { logOutUser, getPosts, newPost, deletePost, getAPost } from '../Methods/firebaseQueries';
+import { getAPost } from '../Methods/firebaseQueries';
 import Login from '../Login/Login'
-import { SSL_OP_ALL } from 'constants';
 //
 // Class defintion 
 //------------------------------------------------------------------
-export default withRouter(class PostPage extends Component {
+export default class PostPage extends Component {
     // Constructor
     //------------------------------------------
     state = {
@@ -83,4 +62,4 @@ export default withRouter(class PostPage extends Component {
             </div>
         )
     }
-})
+}

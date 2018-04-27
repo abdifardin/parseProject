@@ -26,7 +26,7 @@ export default class Footer extends Component {
     //------------------------------------------    
     render () {
         return (
-            <div style={{width: '100%', position: 'absolute', bottom: 0, left: 0,  borderTop: '1px solid #ddd', backgroundColor: '#666', color: 'white', textAlign: 'center', height: 50, display: 'flex', flexDirection: 'column', justifyContent: 'center'}}>
+            <div style={s.root}>
                 @Pars 2018
             </div>
         )
