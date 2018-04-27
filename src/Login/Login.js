@@ -82,7 +82,7 @@ export default class Login extends Component {
                     user
                         ? <Redirect to={`/user/${user.uid}`} />
                         : <div />
-               }
+                }
             </div>
         )
     }

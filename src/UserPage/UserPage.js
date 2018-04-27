@@ -22,7 +22,7 @@ import { Link } from 'react-router-dom';
 import s from './UserPage.style';
 import Posts from '../Posts/Posts';
 import Loader from '../Loader/Loader';
-import { logOutUser, getPosts, newPost, deletePost } from '../Methods/firebaseQueries';
+import { logOutUser, getPosts, newPost, deletePost, getAuthStatus } from '../Methods/firebaseQueries';
 import Login from '../Login/Login'
 import { SSL_OP_ALL } from 'constants';
 
@@ -43,20 +43,14 @@ export default class UserPage extends Component {
     // Life cycle methods
     //------------------------------------------
     componentWillMount() {
-        this.setState({
-            user: this.props.user,
-        })
-    }
-    componentWillReceiveProps(nextProps, nextState) {
-        const oldId = this.props.user;
-        const newId = nextProps.user;
-        if (oldId !== newId){
+        getAuthStatus((user) => {
             getPosts('userPost', this.handleGetPosts);
             this.setState({
-                user: nextProps.user
+                user: user
             })
-        }
+        });
     }
+
 
     // Local methods
     //------------------------------------------
