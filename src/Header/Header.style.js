@@ -1,5 +1,5 @@
 export default {
     root: {
-        borderBottom: '1px solid #ddd'
+        borderBottom: '1px solid #ddd',
     }
 }

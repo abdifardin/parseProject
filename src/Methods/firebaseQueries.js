@@ -156,7 +156,7 @@ const algoliaImporter = () => {
     const itemRef = 'posts';
     const dbRef = firebase.database().ref(itemRef);
 
-    dbRef.once('value', initialImporter);
+    dbRef.on('value', initialImporter);
 };
 
 //

@@ -6,13 +6,13 @@
 import React, { PropTypes, Component } from 'react';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
-import 'react-instantsearch-theme-algolia/style.scss';
+import './CustomStyle.scss'
 import './Search.style';
 import createHistory from 'history/createBrowserHistory';
 
 // local
 import s from './Search.style';
-import { searchPostsSuggestion } from '../Methods/algoliaSearch';
+import { searchPostsSuggestion, algoliaImporter } from '../Methods/algoliaSearch';
 import { initiateAlgoliaSearch } from '../Methods/firebaseQueries';
 import {
     InstantSearch,
@@ -42,6 +42,7 @@ class Search extends Component {
     // life cycle method
     //-----------------------------------------------
     componentDidMount() {
+        algoliaImporter();
     }
 
     componentWillReceiveProps(nextProps) {
@@ -58,8 +59,14 @@ class Search extends Component {
         console.log('hit', hit);
         return (
             <div style={{ marginTop: '15px' }}>
-                <Link to={`/post/${hit.fbKey}`} className="hit-name" style={s.itemLinks}>
-                    something
+                <Link to={`/post/${hit.objectID}`} className="hit-name" style={s.itemLinks}>
+                    <span style={{ height: '75px', overflow: 'hidden' }}>
+                        <span style={{color: 'gray'}}>title: </span>{ hit.title }
+                    </span>
+                    <span>
+                        <span style={{ color: 'gray' }}>description: </span> { hit.description}
+                    </span>
+                    
                 </Link>
             </div>
         );

@@ -82,7 +82,7 @@ export default class Header extends Component {
             <div style={s.root}>
               <Navbar color="light" light expand="md">
                 <NavbarBrand href="/">Pars project</NavbarBrand>
-                <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '10 0' }} >
+                <div style={{ width: '100%', display: 'flex', justifyContent: 'center', padding: '10 0'}} >
                    <Search />
                 </div>
                 <Collapse isOpen={this.state.isOpen} navbar>
