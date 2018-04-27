@@ -52,7 +52,7 @@ export default class Content extends Component {
         const { user } = this.state;
         return (
             <div>
-                <Route exact path="/" ender={props => (
+                <Route exact path="/" render={props => (
                     <Home {...props} user={user} />
                 )} />
 
@@ -67,6 +67,7 @@ export default class Content extends Component {
                 <Route path="/post" render={props => (
                     <PostPage {...props} user={user} />
                 )} />
+
             </div>
         )
     }

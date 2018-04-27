@@ -23,34 +23,15 @@ import {
     ListGroup,
     ListGroupItem} from 'reactstrap';
 import { Link } from 'react-router-dom';
-import ContentLoader from "react-content-loader"
 
 
 // locals
 import s from './UserPage.style';
+import Posts from '../Posts/Posts';
+import Loader from '../Loader/Loader';
 import { logOutUser, getPosts, newPost, deletePost } from '../Methods/firebaseQueries';
 import Login from '../Login/Login'
 import { SSL_OP_ALL } from 'constants';
-
-const MyLoader = props => (
-    <ContentLoader
-        height={160}
-        width={400}
-        speed={2}
-        primaryColor="#f3f3f3"
-        secondaryColor="#ecebeb"
-        {...props}
-    >
-        <circle cx="10" cy="20" r="8" />
-        <rect x="25" y="15" rx="5" ry="5" width="220" height="10" />
-        <circle cx="10" cy="50" r="8" />
-        <rect x="25" y="45" rx="5" ry="5" width="220" height="10" />
-        <circle cx="10" cy="80" r="8" />
-        <rect x="25" y="75" rx="5" ry="5" width="220" height="10" />
-        <circle cx="10" cy="110" r="8" />
-        <rect x="25" y="105" rx="5" ry="5" width="220" height="10" />
-    </ContentLoader>
-)
 
 //
 // Class defintion 
@@ -88,7 +69,7 @@ export default class UserPage extends Component {
     // Local methods
     //------------------------------------------
     toggle = () => {
-        this.setState({ collapse: !this.state.collapse });
+        this.setState({ modal: !this.state.modal });
     }
 
     toggleModal = () => {
@@ -143,55 +124,25 @@ export default class UserPage extends Component {
     //------------------------------------------    
     render () {
         const { user, posts, postEdit } = this.state;
-
-        const _posts = posts && posts.map((item, i) => {
-            //todo: console
-            console.log('title', item.title);
-            return (
-            <ListGroupItem  key={i} style={{display: 'flex', justifyContent: 'space-between'}}>
-                <Link style={{textDecoration: 'none', color: 'black'}} to={`post/${item.fbKey}`}>
-                    {item.title}
-                </Link>
-                <div>
-                    <Button onClick={() => this.handleEdit(item)} color="info" style={{margin: '0 3px'}}>edit</Button>
-                    <Button onClick={() => this.handleRemove(item.fbKey)} color="danger">remove</Button>
-                </div>
-            </ListGroupItem>
-            )
-        })
-
         return (
             <div style={s.root}>
                 <div style={{margin: 'auto'}}>
                     <div style={{ width: 500, textAlign: 'center' }}>
                         <Button color="primary" onClick={this.toggleModal} style={{ marginBottom: '1rem' }}> Create new post </Button>
-                        <Collapse isOpen={this.state.collapse}>
-                            <Form ref="form" onSubmit={this.handleSubmit} style={{ backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '10px', border: '1px solid #ddd' }}>
-                                <FormGroup>
-                                    <Input value={'slkjalsdf'} type="text" name="title" id="newPostTitle" placeholder="write your title here" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Input type="text" name="description" id="newPostDescription" placeholder="write your description here" />
-                                </FormGroup>
-                                <FormGroup>
-                                    <Input multipleLine type="textarea" name="postText" id="newPostText" placeholder="write your text here" />
-                                </FormGroup>
-                                <Button>Submit</Button>
-                            </Form>
-                        </Collapse>
                     </div>
                     <div style={{ fontWeight: 'bold', fontSize: 20, padding: '10px 0' }}>
                         Posts by you
                     </div>
                     <ListGroup style={{ width: 500 }}>
                         {
-                            _posts || 
-                            <MyLoader />
+                            posts 
+                                ? <Posts posts={posts} />
+                                : <Loader />
                         }
                     </ListGroup>
                 </div>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
-                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                    <ModalHeader toggle={this.toggle}>{postEdit ? 'Add new post' : 'Edit the post'} </ModalHeader>
                         <Form ref="form" onSubmit={this.handleSubmit} style={{ backgroundColor: '#f8f9fa', padding: '20px', borderRadius: '10px', border: '1px solid #ddd' }}>
                             <FormGroup>
                                 <Input defaultValue={postEdit.title} type="text" name="title" id="newPostTitle" placeholder="write your title here" />

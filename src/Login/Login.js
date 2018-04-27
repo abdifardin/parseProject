@@ -83,7 +83,7 @@ export default class Login extends Component {
                 {
                     // if user then redirect to home page
                     user
-                        ? <Redirect to="/home" />
+                        ? <Redirect to={`/user/${user.uid}`} />
                         : <div />
                }
             </div>

@@ -248,7 +248,8 @@ a[class^=ais-] {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	-ms-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    z-index: 100;
     flex-wrap: wrap;
     position: absolute;
     top: 70px;
