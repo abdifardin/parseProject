@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 
 // locals
 import s from './Home.style';
-import { getPosts } from '../Methods/firebaseQueries';
+import { getPosts, getAuthStatus } from '../Methods/firebaseQueries';
 import Posts from '../Posts/Posts';
 //
 // Class defintion 
@@ -22,25 +22,20 @@ export default class Home extends Component {
     // Life cycle methods
     //------------------------------------------
     componentWillMount() {
-        this.setState({
-            user: this.props.user,
-        })
-    }
-    componentWillReceiveProps(nextProps, nextState) {
-        const oldId = this.props.user;
-        const newId = nextProps.user;
-        if (oldId !== newId) {
-            getPosts('newPost', this.handleGetPosts);
+        getPosts('newPost', this.handleGetPosts);
+        getAuthStatus((user) => {
             this.setState({
-                user: nextProps.user
+                user: user
             })
-        }
+        });
     }
 
     // Local methods
     //------------------------------------------
     //handle get posts result
     handleGetPosts = (posts) => {
+        //todo: console
+        console.log('handle get posts', posts);
         this.setState({
             posts
         })

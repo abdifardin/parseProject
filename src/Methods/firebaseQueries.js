@@ -13,16 +13,11 @@ const getPosts = (mode, cb) => {
     const itemRef = `posts`;
     const dbRef = firebase.database().ref(itemRef);
 
-    //todo: console
-    console.log('mode', mode, user.uid);
-
     if (mode === 'userPost')
         dbRef
             .orderByChild('uid')
             .equalTo(user.uid)
             .on('value', (snapshot) => {
-                //todo: console
-                console.log('get user posts', _toArray(snapshot));
                 cb(_toArray(snapshot));
             });
     else// query
